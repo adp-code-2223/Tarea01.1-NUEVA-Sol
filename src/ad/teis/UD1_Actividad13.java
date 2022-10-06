@@ -7,6 +7,7 @@ package ad.teis;
 import ad.teis.model.Persona;
 import ad.teis.persistencia.DataIOPersistencia;
 import ad.teis.persistencia.IPersistencia;
+import ad.teis.persistencia.RandomAccessPersistencia;
 
 /**
  *
@@ -14,7 +15,7 @@ import ad.teis.persistencia.IPersistencia;
  */
 public class UD1_Actividad13 {
 
-    private static final String PERSONA_FILE = "persona.dat"; 
+    private static final String PERSONA_FILE = "personaRandom.dat"; 
     /**
      * @param args the command line arguments
      */
@@ -22,12 +23,16 @@ public class UD1_Actividad13 {
     
     public static void main(String[] args) {
         IPersistencia dataIOPersistencia = new DataIOPersistencia();
-//        Persona persona = new Persona(1, "12345678A", 18, 20000.65f);
+        Persona persona = new Persona(1, "12345678A", 18, 20000.65f);
 //        
 //        dataIOPersistencia.escribirPersona(persona, PERSONA_FILE);
 //        
-      Persona personaRecuperada=  dataIOPersistencia.leerDatos(PERSONA_FILE);
-      System.out.println("Se ha recuperado: " + personaRecuperada);
+//      Persona personaRecuperada=  dataIOPersistencia.leerDatos(PERSONA_FILE);
+//      System.out.println("Se ha recuperado: " + personaRecuperada);
+      
+      IPersistencia random = new RandomAccessPersistencia();
+      
+      random.escribirPersona(persona, PERSONA_FILE);
         
     }
     
