@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author mfernandez
  */
-public class UD1_Actividad13 {
+public class UD1_Actividad14 {
 
     private static final String PERSONA_FILE = "personaRandom.dat";
 
