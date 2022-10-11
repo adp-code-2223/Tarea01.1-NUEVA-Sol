@@ -15,12 +15,12 @@ import ad.teis.persistencia.RandomAccessPersistencia;
  */
 public class UD1_Actividad13 {
 
-    private static final String PERSONA_FILE = "personaRandom.dat"; 
+    private static final String PERSONA_FILE = "personaRandom.dat";
+
     /**
      * @param args the command line arguments
      */
-    
-    
+
     public static void main(String[] args) {
         IPersistencia dataIOPersistencia = new DataIOPersistencia();
         Persona persona = new Persona(1, "12345678A", 18, 20000.65f);
@@ -29,11 +29,14 @@ public class UD1_Actividad13 {
 //        
 //      Persona personaRecuperada=  dataIOPersistencia.leerDatos(PERSONA_FILE);
 //      System.out.println("Se ha recuperado: " + personaRecuperada);
-      
-      IPersistencia random = new RandomAccessPersistencia();
-      
-      random.escribirPersona(persona, PERSONA_FILE);
-        
+
+        IPersistencia random = new RandomAccessPersistencia();
+
+        random.escribirPersona(persona, PERSONA_FILE);
+        Persona personaRecuperada = random.leerDatos(PERSONA_FILE);
+
+        System.out.println("La persona recuperada es: " + personaRecuperada);
+
     }
-    
+
 }
