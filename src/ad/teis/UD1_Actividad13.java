@@ -8,6 +8,7 @@ import ad.teis.model.Persona;
 import ad.teis.persistencia.DataIOPersistencia;
 import ad.teis.persistencia.IPersistencia;
 import ad.teis.persistencia.RandomAccessPersistencia;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,22 +21,46 @@ public class UD1_Actividad13 {
     /**
      * @param args the command line arguments
      */
-
     public static void main(String[] args) {
-        IPersistencia dataIOPersistencia = new DataIOPersistencia();
-        Persona persona = new Persona(1, "12345678A", 18, 20000.65f);
-//        
-//        dataIOPersistencia.escribirPersona(persona, PERSONA_FILE);
-//        
-//      Persona personaRecuperada=  dataIOPersistencia.leerDatos(PERSONA_FILE);
-//      System.out.println("Se ha recuperado: " + personaRecuperada);
+        ArrayList<Persona> personas = new ArrayList<>();
+        ArrayList<Persona> personasRecuperadas = new ArrayList<>();
+        Persona personaA = new Persona(1, "12345678A", 18, 20000.65f);
+        Persona personaB = new Persona(2, "12345678B", 12, 30000.65f);
+        Persona personaC = new Persona(3, "12345678C", 22, 40000.65f);
+        personas.add(personaA);
+        personas.add(personaB);
+        personas.add(personaC);
 
-        IPersistencia random = new RandomAccessPersistencia();
+        RandomAccessPersistencia random = new RandomAccessPersistencia();
 
-        random.escribirPersona(persona, PERSONA_FILE);
-        Persona personaRecuperada = random.leerDatos(PERSONA_FILE);
+        //  random.escribirPersonas(personas, PERSONA_FILE);
+        personasRecuperadas = random.leerTodo(PERSONA_FILE);
 
-        System.out.println("La persona recuperada es: " + personaRecuperada);
+        int contador = 1;
+        for (Persona p : personasRecuperadas) {
+            System.out.println("Persona recuperada " + contador + ": " + p);
+            contador++;
+        }
+
+        int pos = 5;
+        Persona personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
+        if (personaRecuperada != null) {
+            System.out.println("La persona en la posición: " + pos + " es: " + personaRecuperada);
+        }
+        else{
+             System.out.println("La persona en la posición: " + pos + " es null. Puede que no haya objetos de tipo Persona en esa posición.");
+        }
+        
+//        Persona personaZ = new Persona(100, "12345678Z", 23, 10000.5f);
+//       
+//        pos=25;
+//        Persona personaRecuperadaZ = random.add(pos, PERSONA_FILE, personaZ);
+//       if (personaRecuperadaZ != null) {
+//            System.out.println("La persona añadida en la posición: " + pos + " es: " + personaRecuperadaZ);
+//        }
+//        else{
+//             System.out.println("No se ha añadido la persona en la posición: " + pos);
+//        }
 
     }
 
