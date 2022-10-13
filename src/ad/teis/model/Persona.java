@@ -14,6 +14,7 @@ public class Persona {
     private String dni;
     private int edad;
     private float salario;
+    private boolean borrado;
 
 
     public Persona(long id, String dni, int edad, float salario) {
@@ -53,6 +54,14 @@ public class Persona {
 
     public void setSalario(float salario) {
         this.salario = salario;
+    }
+
+    public boolean isBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(boolean borrado) {
+        this.borrado = borrado;
     }
 
 
