@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class UD1_Actividad14 {
 
-    private static final String PERSONA_FILE = "personaRandom.dat";
+    private static final String PERSONA_FILE = "personaRandom35.dat";
 
     /**
      * @param args the command line arguments
@@ -33,7 +33,7 @@ public class UD1_Actividad14 {
 
         RandomAccessPersistencia random = new RandomAccessPersistencia();
 
-        //  random.escribirPersonas(personas, PERSONA_FILE);
+        random.escribirPersonas(personas, PERSONA_FILE);
         personasRecuperadas = random.leerTodo(PERSONA_FILE);
 
         int contador = 1;
@@ -60,10 +60,21 @@ public class UD1_Actividad14 {
 //        else{
 //             System.out.println("No se ha añadido la persona en la posición: " + pos);
 //        }
-        pos = 5;
+        pos = 2;
         random.sumarSalario(pos, PERSONA_FILE, 500.5f);
         personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
         System.out.println("La persona con incremento de salario: " + pos + " es: " + personaRecuperada);
+
+        random.borrar(5, PERSONA_FILE, true);
+
+        personasRecuperadas = random.leerTodo(PERSONA_FILE);
+
+        contador = 1;
+        for (Persona p : personasRecuperadas) {
+            System.out.println("Persona recuperada " + contador + ": " + p);
+            contador++;
+        }
+
     }
 
 }

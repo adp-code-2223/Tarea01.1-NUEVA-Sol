@@ -243,7 +243,7 @@ public class RandomAccessPersistencia implements IPersistencia {
             salario = raf.readFloat();
 
             salario += incremento;
-            raf.seek(raf.getFilePointer() - OFFSET_BORRADO - OFFSET_SALARIO);
+            raf.seek(raf.getFilePointer() - OFFSET_SALARIO);
             raf.writeFloat(salario);
 
         } catch (IOException ex) {
@@ -253,15 +253,20 @@ public class RandomAccessPersistencia implements IPersistencia {
         return salario;
     }
 
-//    public boolean borrar(int posicion, String ruta, boolean borrado) {
-//        try (
-//                 RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
-//            
-//        
-//
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//            System.out.println("Se ha producido una excepción: " + ex.getMessage());
-//        }
-//    }
+    public boolean borrar(int posicion, String ruta, boolean borrado) {
+        boolean exito= false;
+        try (
+                 RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
+            
+             raf.seek(posicion * LONG_BYTES_PERSONA - OFFSET_BORRADO);
+             raf.writeBoolean(borrado);
+        
+             exito=true;
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Se ha producido una excepción: " + ex.getMessage());
+        }
+        return exito;
+    }
 }
