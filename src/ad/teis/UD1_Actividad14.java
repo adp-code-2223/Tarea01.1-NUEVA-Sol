@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class UD1_Actividad14 {
 
-    private static final String PERSONA_FILE = "personaRandom35.dat";
+    private static final String PERSONA_FILE = "personaRandom235.dat";
 
     /**
      * @param args the command line arguments
@@ -24,9 +24,9 @@ public class UD1_Actividad14 {
     public static void main(String[] args) {
         ArrayList<Persona> personas = new ArrayList<>();
         ArrayList<Persona> personasRecuperadas = new ArrayList<>();
-        Persona personaA = new Persona(1, "12345678A", 18, 20000.65f);
-        Persona personaB = new Persona(2, "12345678B", 12, 30000.65f);
-        Persona personaC = new Persona(3, "12345678C", 22, 40000.65f);
+        Persona personaA = new Persona(1, "12345678A", 18, 20000.65f, "María");
+        Persona personaB = new Persona(2, "12345678B", 12, 30000.65f, "Juan");
+        Persona personaC = new Persona(3, "12345678C", 22, 40000.65f, "Pepe");
         personas.add(personaA);
         personas.add(personaB);
         personas.add(personaC);
@@ -42,7 +42,7 @@ public class UD1_Actividad14 {
             contador++;
         }
 
-        int pos = 5;
+        int pos = 3;
         Persona personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
         if (personaRecuperada != null) {
             System.out.println("La persona en la posición: " + pos + " es: " + personaRecuperada);
@@ -60,20 +60,20 @@ public class UD1_Actividad14 {
 //        else{
 //             System.out.println("No se ha añadido la persona en la posición: " + pos);
 //        }
-        pos = 2;
-        random.sumarSalario(pos, PERSONA_FILE, 500.5f);
-        personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
-        System.out.println("La persona con incremento de salario: " + pos + " es: " + personaRecuperada);
-
-        random.borrar(5, PERSONA_FILE, true);
-
-        personasRecuperadas = random.leerTodo(PERSONA_FILE);
-
-        contador = 1;
-        for (Persona p : personasRecuperadas) {
-            System.out.println("Persona recuperada " + contador + ": " + p);
-            contador++;
-        }
+//        pos = 2;
+//        random.sumarSalario(pos, PERSONA_FILE, 500.5f);
+//        personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
+//        System.out.println("La persona con incremento de salario: " + pos + " es: " + personaRecuperada);
+//
+//        random.borrar(5, PERSONA_FILE, true);
+//
+//        personasRecuperadas = random.leerTodo(PERSONA_FILE);
+//
+//        contador = 1;
+//        for (Persona p : personasRecuperadas) {
+//            System.out.println("Persona recuperada " + contador + ": " + p);
+//            contador++;
+//        }
 
     }
 

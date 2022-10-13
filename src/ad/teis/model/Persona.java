@@ -15,6 +15,7 @@ public class Persona {
     private int edad;
     private float salario;
     private boolean borrado;
+    private String nombre;
 
 
     public Persona(long id, String dni, int edad, float salario) {
@@ -23,6 +24,16 @@ public class Persona {
         this.edad = edad;
         this.salario = salario;
     }
+
+    public Persona(long id, String dni, int edad, float salario, String nombre) {
+        this.id = id;
+        this.dni = dni;
+        this.edad = edad;
+        this.salario = salario;
+        this.nombre = nombre;
+    }
+    
+    
 
     public long getId() {
         return id;
@@ -64,10 +75,18 @@ public class Persona {
         this.borrado = borrado;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", dni=" + dni + ", edad=" + edad + ", salario=" + salario + ", borrado=" + borrado+'}';
+        return "Persona{" + "id=" + id + ", dni=" + dni + ", nombre=" + nombre +", edad=" + edad + ", salario=" + salario + ", borrado=" + borrado+'}';
     }
 
 }
