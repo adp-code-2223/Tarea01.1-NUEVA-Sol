@@ -46,11 +46,10 @@ public class UD1_Actividad14 {
         Persona personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
         if (personaRecuperada != null) {
             System.out.println("La persona en la posición: " + pos + " es: " + personaRecuperada);
+        } else {
+            System.out.println("La persona en la posición: " + pos + " es null. Puede que no haya objetos de tipo Persona en esa posición.");
         }
-        else{
-             System.out.println("La persona en la posición: " + pos + " es null. Puede que no haya objetos de tipo Persona en esa posición.");
-        }
-        
+
 //        Persona personaZ = new Persona(100, "12345678Z", 23, 10000.5f);
 //       
 //        pos=25;
@@ -61,7 +60,10 @@ public class UD1_Actividad14 {
 //        else{
 //             System.out.println("No se ha añadido la persona en la posición: " + pos);
 //        }
-
+        pos = 5;
+        random.sumarSalario(pos, PERSONA_FILE, 500.5f);
+        personaRecuperada = random.leerPersona(pos, PERSONA_FILE);
+        System.out.println("La persona con incremento de salario: " + pos + " es: " + personaRecuperada);
     }
 
 }

@@ -107,8 +107,8 @@ public class RandomAccessPersistencia implements IPersistencia {
     }
 
     public ArrayList<Persona> leerTodo(String ruta) {
-        long id ;
-        String dni ;
+        long id;
+        String dni;
         int edad;
         float salario;
         StringBuilder sb = new StringBuilder();
@@ -211,5 +211,26 @@ public class RandomAccessPersistencia implements IPersistencia {
             System.out.println("Se ha producido una excepción: " + ex.getMessage());
         }
         return persona;
+    }
+
+    public float sumarSalario(int posicion, String ruta, float incremento) {
+
+        float salario = 0;
+        try (
+                 RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
+
+            raf.seek(posicion * LONG_BYTES_PERSONA - 4);
+//Nos posicionamos al final de la persona que ocupa la posicion que viene por parámetro
+            salario = raf.readFloat();
+
+            salario += incremento;
+            raf.seek(raf.getFilePointer() - 4);
+            raf.writeFloat(salario);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Se ha producido una excepción: " + ex.getMessage());
+        }
+        return salario;
     }
 }
