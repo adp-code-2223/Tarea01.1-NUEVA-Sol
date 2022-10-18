@@ -20,9 +20,11 @@ import java.util.logging.Logger;
 public class RandomAccessPersistencia implements IPersistencia {
 
     private static final int LONG_BYTES_PERSONA = 35 + RandomAccessPersistencia.MAX_LENGTH_NOMBRE * 2;
-    private static final int OFFSET_BORRADO = 1;
+    private static final int OFFSET_BORRADO = 1; 
     private static final int OFFSET_SALARIO = 4;
-    private static final int MAX_LENGTH_NOMBRE = 100;
+    private static final int MAX_LENGTH_NOMBRE = 100; //caracteres
+    private static final int MAX_LENGTH_DNI = 9; //caracteres
+ 
 
     @Override
     public void escribirPersona(Persona persona, String ruta) {
@@ -31,13 +33,12 @@ public class RandomAccessPersistencia implements IPersistencia {
                  RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
             raf.writeLong(persona.getId());
             StringBuilder sb = new StringBuilder(persona.getDni());
-            sb.setLength(9);
+            sb.setLength(MAX_LENGTH_DNI);
             raf.writeChars(sb.toString());
-            //raf.writeUTF(sb.toString());
 
             sb = new StringBuilder(persona.getNombre());
             sb.setLength(MAX_LENGTH_NOMBRE);
-            raf.writeUTF(sb.toString());
+            raf.writeChars(sb.toString());
 
             raf.writeInt(persona.getEdad());
             raf.writeFloat(persona.getSalario());
@@ -66,13 +67,17 @@ public class RandomAccessPersistencia implements IPersistencia {
                  RandomAccessFile raf = new RandomAccessFile(ruta, "r");) {
 
             id = raf.readLong();
-            for (int i = 0; i <= 8; i++) {
+            for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
                 sb.append(raf.readChar());
             }
 
             dni = sb.toString();
 
-            nombre = raf.readUTF();
+            sb = new StringBuilder();
+            for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
+                sb.append(raf.readChar());
+            }
+            nombre = sb.toString();
 
             edad = raf.readInt();
             salario = raf.readFloat();
@@ -92,6 +97,7 @@ public class RandomAccessPersistencia implements IPersistencia {
 
     public void escribirPersonas(ArrayList<Persona> personas, String ruta) {
         long longitudBytes = 0;
+
         if (personas != null) {
             try (
                      RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
@@ -99,20 +105,21 @@ public class RandomAccessPersistencia implements IPersistencia {
                 longitudBytes = raf.length();
                 raf.seek(longitudBytes);
                 for (Persona persona : personas) {
+
                     raf.writeLong(persona.getId());
                     StringBuilder sb = new StringBuilder(persona.getDni());
-                    sb.setLength(9);
+                    sb.setLength(MAX_LENGTH_DNI);
                     raf.writeChars(sb.toString());
-                    //raf.writeUTF(sb.toString());
 
                     sb = new StringBuilder(persona.getNombre());
                     sb.setLength(MAX_LENGTH_NOMBRE);
-                    raf.writeUTF(sb.toString());
+                    raf.writeChars(sb.toString());
 
                     raf.writeInt(persona.getEdad());
                     raf.writeFloat(persona.getSalario());
 
                     raf.writeBoolean(persona.isBorrado());
+
                 }
 
             } catch (FileNotFoundException ex) {
@@ -128,10 +135,10 @@ public class RandomAccessPersistencia implements IPersistencia {
 
     public ArrayList<Persona> leerTodo(String ruta) {
         long id;
-        String dni="", nombre="";
+        String dni = "", nombre = "";
         int edad;
         float salario;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb =null;
         Persona persona = null;
         boolean borrado = false;
         ArrayList<Persona> personas = new ArrayList<>();
@@ -141,12 +148,18 @@ public class RandomAccessPersistencia implements IPersistencia {
             do {
                 id = raf.readLong();
                 sb = new StringBuilder();
-                for (int i = 0; i <= 8; i++) {
+                for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
                     sb.append(raf.readChar());
                 }
 
                 dni = sb.toString();
-                nombre = raf.readUTF();
+
+                sb = new StringBuilder();
+                for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
+                    sb.append(raf.readChar());
+                }
+
+                nombre = sb.toString();
 
                 edad = raf.readInt();
                 salario = raf.readFloat();
@@ -170,7 +183,7 @@ public class RandomAccessPersistencia implements IPersistencia {
 
     public Persona leerPersona(int posicion, String ruta) {
         long id = 0;
-        String dni = "", nombre="";
+        String dni = "", nombre = "";
         int edad = 0;
         float salario = 0;
         StringBuilder sb = new StringBuilder();
@@ -182,12 +195,17 @@ public class RandomAccessPersistencia implements IPersistencia {
 
             raf.seek(converToBytePosition(posicion));
             id = raf.readLong();
-            for (int i = 0; i <= 8; i++) {
+            for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
                 sb.append(raf.readChar());
             }
 
             dni = sb.toString();
-            nombre = raf.readUTF();
+            sb = new StringBuilder();
+            for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
+                sb.append(raf.readChar());
+            }
+
+            nombre = sb.toString();
 
             edad = raf.readInt();
             salario = raf.readFloat();
@@ -225,13 +243,13 @@ public class RandomAccessPersistencia implements IPersistencia {
 
             raf.writeLong(persona.getId());
             StringBuilder sb = new StringBuilder(persona.getDni());
-            sb.setLength(9);
+            sb.setLength(MAX_LENGTH_DNI);
             raf.writeChars(sb.toString());
-            //raf.writeUTF(sb.toString());
-            
-             sb = new StringBuilder(persona.getNombre());
+           
+
+            sb = new StringBuilder(persona.getNombre());
             sb.setLength(MAX_LENGTH_NOMBRE);
-            raf.writeUTF(sb.toString());
+            raf.writeChars(sb.toString());
 
             raf.writeInt(persona.getEdad());
             raf.writeFloat(persona.getSalario());
