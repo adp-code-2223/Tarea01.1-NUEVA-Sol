@@ -14,7 +14,7 @@ public class Persona {
     private String dni;
     private int edad;
     private float salario;
-    private boolean borrado;
+    private boolean borrado = false;
     private String nombre;
 
 
