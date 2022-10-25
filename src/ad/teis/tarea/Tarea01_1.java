@@ -25,32 +25,7 @@ public class Tarea01_1 {
             "destinoRandom.dat.").toString();
 
     private static void cribarBorrados() {
-        if (Files.exists(Paths.get(PERSONAS_FILE))) {
-
-            try {
-                Files.copy(Paths.get(PERSONAS_FILE), Paths.get(PERSONAS_FILE_BK), StandardCopyOption.REPLACE_EXISTING);
-
-                RandomAccessPersistencia random = new RandomAccessPersistencia();
-
-                ArrayList<Persona> personas = random.leerTodo(PERSONAS_FILE);
-
-                ArrayList<Persona> personasNoBorradas = (ArrayList<Persona>) personas.stream().filter(p -> !p.isBorrado()).collect(Collectors.toList());
-                System.out.println("total: " + personas.size() + " no borradas: " + personasNoBorradas.size());
-
-                int pos = 1;
-                for (Persona personaNoBorrada : personasNoBorradas) {
-                    random.add(pos, PERSONAS_FILE_DESTINO, personaNoBorrada);
-                    pos++;
-                }
-
-                Files.delete(Paths.get(PERSONAS_FILE));
-
-            } catch (IOException ex) {
-               // Logger.getLogger(Tarea01_1.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
-                System.out.println("SE ha producido una exception: " + ex.getMessage());
-            }
-        }
+       //implementa el método
       
     }
 
