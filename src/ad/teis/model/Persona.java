@@ -10,6 +10,9 @@ package ad.teis.model;
  */
 public class Persona {
 
+    public static final int MAX_LENGTH_DNI = 9; //caracteres
+    public static final int MAX_LENGTH_NOMBRE = 100; //caracteres
+
     private long id;
     private String dni;
     private int edad;
@@ -17,6 +20,8 @@ public class Persona {
     private boolean borrado = false;
     private String nombre;
 
+    public Persona() {
+    }
 
     public Persona(long id, String dni, int edad, float salario) {
         this.id = id;
@@ -32,8 +37,6 @@ public class Persona {
         this.salario = salario;
         this.nombre = nombre;
     }
-    
-    
 
     public long getId() {
         return id;
@@ -83,10 +86,9 @@ public class Persona {
         this.nombre = nombre;
     }
 
-
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", dni=" + dni + ", nombre=" + ((nombre!=null)?nombre.trim():"null") +", edad=" + edad + ", salario=" + salario + ", borrado=" + borrado+'}';
+        return "Persona{" + "id=" + id + ", dni=" + dni + ", nombre=" + ((nombre != null) ? nombre.trim() : "null") + ", edad=" + edad + ", salario=" + salario + ", borrado=" + borrado + '}';
     }
 
 }

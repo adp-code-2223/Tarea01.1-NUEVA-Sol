@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,82 +17,16 @@ import java.util.logging.Logger;
  */
 public class RandomAccessPersistencia implements IPersistencia {
 
-    private static final int LONG_BYTES_PERSONA = 35 + RandomAccessPersistencia.MAX_LENGTH_NOMBRE * 2;
+    private static final int LONG_BYTES_PERSONA = 35 + Persona.MAX_LENGTH_NOMBRE * 2;
     private static final int OFFSET_BORRADO = 1; 
     private static final int OFFSET_SALARIO = 4;
-    private static final int MAX_LENGTH_NOMBRE = 100; //caracteres
-    private static final int MAX_LENGTH_DNI = 9; //caracteres
+  
+
  
 
-    @Override
-    public void escribirPersona(Persona persona, String ruta) {
 
-        try (
-                 RandomAccessFile raf = new RandomAccessFile(ruta, "rw");) {
-            raf.writeLong(persona.getId());
-            StringBuilder sb = new StringBuilder(persona.getDni());
-            sb.setLength(MAX_LENGTH_DNI);
-            raf.writeChars(sb.toString());
-
-            sb = new StringBuilder(persona.getNombre());
-            sb.setLength(MAX_LENGTH_NOMBRE);
-            raf.writeChars(sb.toString());
-
-            raf.writeInt(persona.getEdad());
-            raf.writeFloat(persona.getSalario());
-            raf.writeBoolean(persona.isBorrado());
-
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-            System.out.println("Se ha producido una excepción: " + ex.getMessage());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.out.println("Se ha producido una excepción: " + ex.getMessage());
-        }
-    }
 
     @Override
-    public Persona leerDatos(String ruta) {
-
-        long id = 0;
-        String dni = "", nombre = "";
-        int edad = 0;
-        float salario = 0;
-        StringBuilder sb = new StringBuilder();
-        Persona persona = null;
-        boolean borrado = false;
-        try (
-                 RandomAccessFile raf = new RandomAccessFile(ruta, "r");) {
-
-            id = raf.readLong();
-            for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
-                sb.append(raf.readChar());
-            }
-
-            dni = sb.toString();
-
-            sb = new StringBuilder();
-            for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
-                sb.append(raf.readChar());
-            }
-            nombre = sb.toString();
-
-            edad = raf.readInt();
-            salario = raf.readFloat();
-
-            borrado = raf.readBoolean();
-
-            persona = new Persona(id, dni, edad, salario, nombre);
-            persona.setBorrado(borrado);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.out.println("Se ha producido una excepción: " + ex.getMessage());
-        }
-        return persona;
-
-    }
-
     public void escribirPersonas(ArrayList<Persona> personas, String ruta) {
         long longitudBytes = 0;
 
@@ -108,11 +40,11 @@ public class RandomAccessPersistencia implements IPersistencia {
 
                     raf.writeLong(persona.getId());
                     StringBuilder sb = new StringBuilder(persona.getDni());
-                    sb.setLength(MAX_LENGTH_DNI);
+                    sb.setLength(Persona.MAX_LENGTH_DNI);
                     raf.writeChars(sb.toString());
 
                     sb = new StringBuilder(persona.getNombre());
-                    sb.setLength(MAX_LENGTH_NOMBRE);
+                    sb.setLength(Persona.MAX_LENGTH_NOMBRE);
                     raf.writeChars(sb.toString());
 
                     raf.writeInt(persona.getEdad());
@@ -132,7 +64,7 @@ public class RandomAccessPersistencia implements IPersistencia {
         }
 
     }
-
+@Override
     public ArrayList<Persona> leerTodo(String ruta) {
         long id;
         String dni = "", nombre = "";
@@ -148,14 +80,14 @@ public class RandomAccessPersistencia implements IPersistencia {
             do {
                 id = raf.readLong();
                 sb = new StringBuilder();
-                for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
+                for (int i = 0; i <= (Persona.MAX_LENGTH_DNI -1); i++) {
                     sb.append(raf.readChar());
                 }
 
                 dni = sb.toString();
 
                 sb = new StringBuilder();
-                for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
+                for (int i = 0; i < Persona.MAX_LENGTH_NOMBRE; i++) {
                     sb.append(raf.readChar());
                 }
 
@@ -195,13 +127,13 @@ public class RandomAccessPersistencia implements IPersistencia {
 
             raf.seek(converToBytePosition(posicion));
             id = raf.readLong();
-            for (int i = 0; i <= (MAX_LENGTH_DNI -1); i++) {
+            for (int i = 0; i <= (Persona.MAX_LENGTH_DNI -1); i++) {
                 sb.append(raf.readChar());
             }
 
             dni = sb.toString();
             sb = new StringBuilder();
-            for (int i = 0; i < MAX_LENGTH_NOMBRE; i++) {
+            for (int i = 0; i < Persona.MAX_LENGTH_NOMBRE; i++) {
                 sb.append(raf.readChar());
             }
 
@@ -243,12 +175,12 @@ public class RandomAccessPersistencia implements IPersistencia {
 
             raf.writeLong(persona.getId());
             StringBuilder sb = new StringBuilder(persona.getDni());
-            sb.setLength(MAX_LENGTH_DNI);
+            sb.setLength(Persona.MAX_LENGTH_DNI);
             raf.writeChars(sb.toString());
            
 
             sb = new StringBuilder(persona.getNombre());
-            sb.setLength(MAX_LENGTH_NOMBRE);
+            sb.setLength(Persona.MAX_LENGTH_NOMBRE);
             raf.writeChars(sb.toString());
 
             raf.writeInt(persona.getEdad());

@@ -5,14 +5,16 @@
 package ad.teis.persistencia;
 
 import ad.teis.model.Persona;
+import java.util.ArrayList;
 
 /**
  *
  * @author mfernandez
  */
 public interface IPersistencia {
-    
-    void escribirPersona(Persona persona, String ruta);
-    Persona leerDatos(String ruta);
-    
+
+    void escribirPersonas(ArrayList<Persona> personas, String ruta);
+
+    ArrayList<Persona> leerTodo(String ruta);
+
 }
