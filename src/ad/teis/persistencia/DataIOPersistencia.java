@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class DataIOPersistencia implements IPersistencia {
 
-
+    @Override
     public void escribirPersonas(ArrayList<Persona> personas, String ruta) {
         if (personas != null) {
 
@@ -61,10 +61,11 @@ public class DataIOPersistencia implements IPersistencia {
         boolean borrado = false;
         ArrayList<Persona> personas = new ArrayList<>();
         Persona persona = null;
+        boolean eof = false;
 
         try ( FileInputStream fis = new FileInputStream(ruta);  DataInputStream dis = new DataInputStream(fis);) {
 
-            while (true) {
+            while (!eof) {
 
                 try {
                     id = dis.readLong();
@@ -93,8 +94,7 @@ public class DataIOPersistencia implements IPersistencia {
 
                     personas.add(persona);
                 } catch (EOFException eofex) {
-                  
-                    break;
+                    eof = true;
                 }
             }
         } catch (IOException ex) {

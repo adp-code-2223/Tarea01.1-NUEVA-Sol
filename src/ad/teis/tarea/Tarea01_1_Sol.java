@@ -50,7 +50,7 @@ public class Tarea01_1_Sol {
             personasSinBorrar = filtrarPersonas(personas);
 
             if (Files.exists(PERSONAS_DESTINO_PATH)) {
-                System.out.println("Deleting destino antes de crear destino");
+                System.out.println("Deleting destino...");
                 Files.delete(PERSONAS_DESTINO_PATH);
 
             }
